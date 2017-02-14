@@ -1,6 +1,8 @@
 # ContentExporterMSBuild
 
-Build sdkmesh files from fbx by adding them to your VS project.
+Build sdkmesh files from fbx by adding them to your VS project. Comes with a property sheets GUI (below).
+
+![demo](demo.jpg)
 
 # How To Use
 
