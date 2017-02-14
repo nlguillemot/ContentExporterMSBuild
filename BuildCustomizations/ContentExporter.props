@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Condition="'$(ContentExporterBeforeTargets)' == '' and '$(ContentExporterAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <ContentExporterBeforeTargets>Midl</ContentExporterBeforeTargets>
+    <ContentExporterAfterTargets>CustomBuild</ContentExporterAfterTargets>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <ContentExporterDependsOn
+      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(ContentExporterDependsOn)</ContentExporterDependsOn>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ContentExporter>
+      <OutputPath>$(OutDir)</OutputPath>
+      <FileFormat>SDKMESH</FileFormat>
+      <ExportHiddenObjects>false</ExportHiddenObjects>
+      <ExportFrames>true</ExportFrames>
+      <ExportLights>true</ExportLights>
+      <LightRangeScale>1.000</LightRangeScale>
+      <ExportCameras>true</ExportCameras>
+      <ExportBindPose>true</ExportBindPose>
+      <ExportScale>1.000</ExportScale>
+      <ExportMeshes>true</ExportMeshes>
+      <CompressVertexData>false</CompressVertexData>
+      <ComputeVertexTangents>false</ComputeVertexTangents>
+      <TangentsIndex>0</TangentsIndex>
+      <ExportBinormals>true</ExportBinormals>
+      <ExportNormals>true</ExportNormals>
+      <ExportColors>true</ExportColors>
+      <Force32BitIndices>false</Force32BitIndices>
+      <MaxUVSetCount>8</MaxUVSetCount>
+      <ExportBoneWeights>true</ExportBoneWeights>
+      <FlipTriangles>true</FlipTriangles>
+      <ApplyGlobalTrans>false</ApplyGlobalTrans>
+      <InvertVTexCoord>true</InvertVTexCoord>
+      <FlipZ>true</FlipZ>
+      <MeshNameDecoration>Mesh</MeshNameDecoration>
+      <GAdjacency>false</GAdjacency>
+      <OptimizeMeshes>false</OptimizeMeshes>
+      <VCache>12</VCache>
+      <Restart>7</Restart>
+      <CleanMeshes>false</CleanMeshes>
+      <GenerateUVAtlas>-1</GenerateUVAtlas>
+      <UVAtlasStretch>0.750</UVAtlasStretch>
+      <UVAtlasGutter>2.500</UVAtlasGutter>
+      <UVAtlasTextureSize>1024</UVAtlasTextureSize>
+      <ConvertMeshToSubD>false</ConvertMeshToSubD>
+      <ExportMaterials>true</ExportMaterials>
+      <DefaultMaterialName>Default</DefaultMaterialName>
+      <MaterialColors>true</MaterialColors>
+      <TextureCompression>true</TextureCompression>
+      <TextureBGRA>false</TextureBGRA>
+      <GenerateTextureMips>true</GenerateTextureMips>
+      <ForceTextureOverwrite>true</ForceTextureOverwrite>
+      <UseEmissiveTexture>true</UseEmissiveTexture>
+      <DefaultDiffuseMap></DefaultDiffuseMap>
+      <DefaultNormalMap></DefaultNormalMap>
+      <DefaultSpecMap></DefaultSpecMap>
+      <ExportAnimations>true</ExportAnimations>
+      <OptimizeAnimations>true</OptimizeAnimations>
+      <RenameAnimations>true</RenameAnimations>
+      <AnimSampleCount>1</AnimSampleCount>
+      <PositionCurveQuality>50</PositionCurveQuality>
+      <OrientationCurveQuality>50</OrientationCurveQuality>
+      <AnimationRootNode></AnimationRootNode>
+      <PackMeshData>true</PackMeshData>
+      <UseExistingBundle>false</UseExistingBundle>
+      <BundleTextures>true</BundleTextures>
+      <CommandLineTemplate>ContentExporter.exe [AllOptions] [Inputs]</CommandLineTemplate>
+      <TrackerCommandLine>"$(MSBuildBinPath)\amd64\Tracker.exe" /d "$(MSBuildBinPath)\FileTracker64.dll" /i $(TLogLocation) /r "[Inputs]" /c ContentExporter.exe [AllOptions] [Inputs]</TrackerCommandLine>
+      <ExecutionDescription>%(Filename)%(Extension)</ExecutionDescription>
+    </ContentExporter>
+  </ItemDefinitionGroup>
+
+</Project>

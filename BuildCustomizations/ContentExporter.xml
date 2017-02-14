@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+    
+  <Rule Name="ContentExporter"
+        PageTemplate="tool"
+        DisplayName="ATG Samples Content Exporter"
+        Order="300">
+
+    <Rule.Categories>
+      <Category Name="General" DisplayName="General &amp; Macro Options" />
+      <Category Name="TargetPlatform" DisplayName="Target Platform Options" />
+      <Category Name="Scene" DisplayName="Scene Options" />
+      <Category Name="Meshes" DisplayName="Meshes Options" />
+      <Category Name="MeshOptimization" DisplayName="Mesh optimization Options" />
+      <Category Name="UVAtlasGeneration" DisplayName="UV Atlas Generation Options" />
+      <Category Name="SubdivisionSurfaces" DisplayName="Subdivision Surfaces Options" />
+      <Category Name="Materials" DisplayName="Materials Options" />
+      <Category Name="Animation" DisplayName="Animation Options" />
+      <Category Name="XATGFileExport" DisplayName="XATG File Export Options" />
+      <Category Name="Command Line" Subtype="CommandLine" DisplayName="Command Line" />
+    </Rule.Categories>
+
+    <Rule.DataSource>
+      <DataSource Persistence="ProjectFile" ItemType="ContentExporter" />
+    </Rule.DataSource>
+
+    <StringListProperty
+      Name="Inputs"
+      Category="Command Line"
+      IsRequired="true"
+      Switch="">
+      <StringListProperty.DataSource>
+        <DataSource
+          Persistence="ProjectFile"
+          ItemType="ContentExporter"
+          SourceType="Item" />
+      </StringListProperty.DataSource>
+    </StringListProperty>
+    
+    <!-- General options -->
+    <StringProperty Subtype="folder" 
+                    Name="OutputPath" 
+                    DisplayName="Output Path"
+                    Description="Sets the output root path; files will appear in scenes/ and textures/ subdirectories"
+                    Category="General"
+                    Switch="-outputpath &quot;[value]&quot;" />
+    <BoolProperty Name="Verbose"
+                  DisplayName="Verbose"
+                  Description="Displays more detailed output, equivalent to -loglevel 4"
+                  Category="General"
+                  Switch="-verbose" />
+    <EnumProperty Name="TargetPlatform"
+                  DisplayName="Target Platform"
+                  Description="Sets export options for the target platform"
+                  Category="General" >
+        <EnumValue Name="Xbox360" DisplayName="Xbox 360" Switch="-xbox360" />
+        <EnumValue Name="XboxOne" DisplayName="Xbox One" Switch="-xboxone" />
+        <EnumValue Name="WindowsD3D9" DisplayName="Windows D3D9" Switch="-windowsd3d9" />
+        <EnumValue Name="WindowsD3D10" DisplayName="Windows D3D10" Switch="-windowsd3d10" />
+        <EnumValue Name="WindowsD3D11" DisplayName="Windows D3D11" Switch="-windowsd3d11" />
+    </EnumProperty>
+    <BoolProperty Name="CollisionMesh"
+                  DisplayName="Collision Mesh"
+                  Description="Sets export options for collision mesh export"
+                  Category="General"
+                  Switch="-collisionmesh" />
+    <BoolProperty Name="Animation"
+                  DisplayName="Animation"
+                  Description="Sets export options for animation track export"
+                  Category="General"
+                  Switch="-animation" />
+    <BoolProperty Name="Character"
+                  DisplayName="Character"
+                  Description="Sets export options for character (mesh &amp; skeleton) export"
+                  Category="General"
+                  Switch="-character" />
+    <BoolProperty Name="LightMaps"
+                  DisplayName="Light maps"
+                  Description="Sets export options for light-mapped mesh export"
+                  Category="General"
+                  Switch="-lightmaps" />
+    <BoolProperty Name="NormalMaps"
+                  DisplayName="Normal maps"
+                  Description="Sets export options for normal-mapped mesh export"
+                  Category="General"
+                  Switch="-normalmaps" />
+    <BoolProperty Name="SubD11"
+                  DisplayName="SubD11"
+                  Description="Sets export options for subdivision surface processing for SubD11 sample"
+                  Category="General"
+                  Switch="-subd11" />
+    <BoolProperty Name="SubDXbox"
+                  DisplayName="Xbox SubD"
+                  Description="Sets export options for subdivision surface processing for Xbox SubD sample"
+                  Category="General"
+                  Switch="-subdxbox" />
+    <StringProperty Subtype="file" 
+                    Name="SaveSettings" 
+                    DisplayName="Save Settings"
+                    Description="Saves all settings to the specified filename"
+                    Category="General"
+                    Switch="-savesettings &quot;[value]&quot;" />
+    <StringProperty Subtype="file" 
+                    Name="LoadSettings" 
+                    DisplayName="Load Settings"
+                    Description="Loads settings from the specified filename"
+                    Category="General"
+                    Switch="-loadsettings &quot;[value]&quot;" />
+    <StringProperty Subtype="file" 
+                    Name="FileList" 
+                    DisplayName="File List"
+                    Description="Loads a list of input filenames from the specified filename"
+                    Category="General"
+                    Switch="-filelist &quot;[value]&quot;" />
+    <IntProperty Name="LogLevel"
+                 DisplayName="Log Level"
+                 Description="Sets the message logging level, higher values show more messages"
+                 Category="General"
+                 MinValue="1"
+                 MaxValue="10"
+                 Switch="-loglevel [value]" />
+
+    <!-- Target Platform Options -->
+    <EnumProperty Name="FileFormat"
+                  DisplayName="File Format"
+                  Description="Output File Format"
+                  Category="TargetPlatform" >
+      <EnumValue Name="XATG" DisplayName="XATG" Switch="-fileformat xatg" />
+      <EnumValue Name="SDKMESH" DisplayName="SDKMESH" Switch="-fileformat sdkmesh" />
+    </EnumProperty>
+    <EnumProperty Name="Endian"
+                  DisplayName="Endian"
+                  Description="Data Endianness"
+                  Category="TargetPlatform" >
+      <EnumValue Name="PPC" DisplayName="PowerPC (Big)" Switch="-endian ppc" />
+      <EnumValue Name="Intel" DisplayName="Intel (Little)" Switch="-endian intel" />
+    </EnumProperty>
+    <EnumProperty Name="FeatureLevel"
+                  DisplayName="Feature Level"
+                  Description="Target Feature Level"
+                  Category="TargetPlatform" >
+      <EnumValue Name="12.1" DisplayName="12.1" Switch="-featurelevel 12.1" />
+      <EnumValue Name="12.0" DisplayName="12.0" Switch="-featurelevel 12.0" />
+      <EnumValue Name="11.1" DisplayName="11.1" Switch="-featurelevel 11.1" />
+      <EnumValue Name="11.0" DisplayName="11.0" Switch="-featurelevel 11.0" />
+      <EnumValue Name="10.1" DisplayName="10.1" Switch="-featurelevel 10.1" />
+      <EnumValue Name="10.0" DisplayName="10.0" Switch="-featurelevel 10.0" />
+      <EnumValue Name="9.3" DisplayName="9.3" Switch="-featurelevel 9.3" />
+      <EnumValue Name="9.2" DisplayName="9.2" Switch="-featurelevel 9.2" />
+      <EnumValue Name="9.1" DisplayName="9.1" Switch="-featurelevel 9.1" />
+    </EnumProperty>
+
+    <!-- Scene Options -->
+    <BoolProperty Name="ExportHiddenObjects"
+                  DisplayName="Export Hidden Objects"
+                  Description="Export Hidden Objects"
+                  Category="Scene"
+                  Switch="-exporthiddenobjects+"
+                  ReverseSwitch="-exporthiddenobjects-" />
+    <BoolProperty Name="ExportFrames"
+                  DisplayName="Export Frames"
+                  Description="Export Frames"
+                  Category="Scene"
+                  Switch="-exportframes+"
+                  ReverseSwitch="-exportframes-" />
+    <BoolProperty Name="ExportLights"
+                  DisplayName="Export Lights"
+                  Description="Export Lights"
+                  Category="Scene"
+                  Switch="-exportlights+"
+                  ReverseSwitch="-exportlights-" />
+    <StringProperty Name="LightRangeScale"
+                    DisplayName="Light Range Scale"
+                    Description="Light Range Scale (ranged value 0.000 - 1000.000)"
+                    Category="Scene"
+                    Switch="-lightrangescale [value]" />
+    <BoolProperty Name="ExportCameras"
+                  DisplayName="Export Cameras"
+                  Description="Export Cameras"
+                  Category="Scene"
+                  Switch="-exportcameras+"
+                  ReverseSwitch="-exportcameras-" />
+    <BoolProperty Name="ExportBindPose"
+                  DisplayName="Export Bind Pose"
+                  Description="Export in Bind Pose"
+                  Category="Scene"
+                  Switch="-exportbindpose+"
+                  ReverseSwitch="-exportbindpose-" />
+    <StringProperty Name="ExportScale"
+                    DisplayName="Export Scale"
+                    Description="Export Scene Scale (ranged value 0.000 - 1000000.000)"
+                    Category="Scene"
+                    Switch="-exportscale [value]" />
+
+    <!-- Meshes Options -->
+    <BoolProperty Name="ExportMeshes"
+                  DisplayName="Export Meshes"
+                  Description="Export Meshes"
+                  Category="Meshes"
+                  Switch="-exportmeshes+"
+                  ReverseSwitch="-exportmeshes-" />
+    <BoolProperty Name="CompressVertexData"
+                  DisplayName="Compress Vertex Data"
+                  Description="Compress Vertex Data"
+                  Category="Meshes"
+                  Switch="-compressvertexdata+"
+                  ReverseSwitch="-compressvertexdata-" />
+    <BoolProperty Name="ComputeVertexTangents"
+                  DisplayName="Compute Vertex Tangent Space"
+                  Description="Compute Vertex Tangent Space"
+                  Category="Meshes"
+                  Switch="-computevertextangents+"
+                  ReverseSwitch="-computevertextangents-" />
+    <IntProperty Name="TangentsIndex"
+                 DisplayName="Tangents Index"
+                 Description="Generate Tangents on Texture Coordinate Index"
+                 Category="Meshes"
+                 MinValue="0"
+                 MaxValue="7"
+                 Switch="-tangentsindex [value]" />
+    <BoolProperty Name="ExportBinormals"
+                  DisplayName="Export Binormals"
+                  Description="Export Binormals"
+                  Category="Meshes"
+                  Switch="-exportbinormals+"
+                  ReverseSwitch="-exportbinormals-" />
+    <EnumProperty Name="CompressedNormalType"
+                  DisplayName="Compressed Normal Type"
+                  Description="Compressed Type for Normals"
+                  Category="Meshes" >
+      <EnumValue Name="float3" DisplayName="float3" Switch="-compressednormaltype float3" />
+      <EnumValue Name="ubyte4n" DisplayName="ubyte4n" Switch="-compressednormaltype ubyte4n" />
+      <EnumValue Name="short4n" DisplayName="short4n" Switch="-compressednormaltype short4n" />
+      <EnumValue Name="float16_4" DisplayName="float16_4" Switch="-compressednormaltype float16_4" />
+      <EnumValue Name="rgba_10" DisplayName="rgba_10" Switch="-compressednormaltype rgba_10" />
+      <EnumValue Name="r11g11b10" DisplayName="r11g11b10" Switch="-compressednormaltype r11g11b10" />
+      <EnumValue Name="rgba_snorm" DisplayName="rgba_snorm" Switch="-compressednormaltype rgba_snorm" />
+      <EnumValue Name="rgba_s10" DisplayName="rgba_s10" Switch="-compressednormaltype rgba_s10" />
+    </EnumProperty>
+    <BoolProperty Name="ExportNormals"
+                  DisplayName="Export Normals"
+                  Description="Export Normals"
+                  Category="Meshes"
+                  Switch="-exportnormals+"
+                  ReverseSwitch="-exportnormals-" />
+    <BoolProperty Name="ExportColors"
+                  DisplayName="Export Vertex Colors"
+                  Description="Export Vertex Colors"
+                  Category="Meshes"
+                  Switch="-exportcolors+"
+                  ReverseSwitch="-exportcolors-" />
+    <EnumProperty Name="VertexColorType"
+                  DisplayName="Vertex Color Type"
+                  Description="Type for Vertex Colors"
+                  Category="Meshes" >
+      <EnumValue Name="bgra" DisplayName="bgra" Switch="-vertexcolortype bgra" />
+      <EnumValue Name="rgba" DisplayName="rgba" Switch="-vertexcolortype rgba" />
+      <EnumValue Name="float4" DisplayName="float4" Switch="-vertexcolortype float4" />
+      <EnumValue Name="float16_4" DisplayName="float16_4" Switch="-vertexcolortype float16_4" />
+      <EnumValue Name="rgba_10" DisplayName="rgba_10" Switch="-vertexcolortype rgba_10" />
+      <EnumValue Name="r11g11b10" DisplayName="r11g11b10" Switch="-vertexcolortype r11g11b10" />
+    </EnumProperty>
+    <BoolProperty Name="Force32BitIndices"
+                  DisplayName="Force 32-bit Indices"
+                  Description="Force 32 Bit Index Buffers"
+                  Category="Meshes"
+                  Switch="-force32bitindices+"
+                  ReverseSwitch="-force32bitindices-" />
+    <IntProperty Name="MaxUVSetCount"
+                 DisplayName="Max UV Set Count"
+                 Description="Max UV Set Count"
+                 Category="Meshes"
+                 MinValue="0"
+                 MaxValue="8"
+                 Switch="-maxuvsetcount [value]" />
+    <BoolProperty Name="ExportBoneWeights"
+                  DisplayName="Export Bone Weights"
+                  Description="Export Bone Weights &amp; Indices for Skinned Meshes"
+                  Category="Meshes"
+                  Switch="-exportboneweights+"
+                  ReverseSwitch="-exportboneweights-" />
+    <BoolProperty Name="FlipTriangles"
+                  DisplayName="Flip Triangles"
+                  Description="Flip Triangle Winding"
+                  Category="Meshes"
+                  Switch="-fliptriangles+"
+                  ReverseSwitch="-fliptriangles-" />
+    <BoolProperty Name="ApplyGlobalTrans"
+                  DisplayName="Apply Global Transformation"
+                  Description="Apply global transformation (if not animated)"
+                  Category="Meshes"
+                  Switch="-applyglobaltrans+"
+                  ReverseSwitch="-applyglobaltrans-" />
+    <BoolProperty Name="InvertVTexCoord"
+                  DisplayName="Invert V Texture Coordinates"
+                  Description="Invert V Texture Coordinates"
+                  Category="Meshes"
+                  Switch="-invertvtexcoord+"
+                  ReverseSwitch="-invertvtexcoord-" />
+    <BoolProperty Name="FlipZ"
+                  DisplayName="Invert Z Coordinates"
+                  Description="Invert Z Coordinates"
+                  Category="Meshes"
+                  Switch="-flipz+"
+                  ReverseSwitch="-flipz-" />
+    <StringProperty Name="MeshNameDecoration"
+                    DisplayName="Mesh Name Decoration"
+                    Description="Mesh Name Decoration, applied as a prefix to mesh names"
+                    Category="Meshes"
+                    Switch="-meshnamedecoration &quot;[value]&quot;" />
+    
+    <!-- Mesh optimization Options -->
+    <BoolProperty Name="GAdjacency"
+                  DisplayName="Geometric Adjacency"
+                  Description="Use geometric rather than topographic adjacency"
+                  Category="MeshOptimization"
+                  Switch="-gadjacency+"
+                  ReverseSwitch="-gadjacency-" />
+    <BoolProperty Name="OptimizeMeshes"
+                  DisplayName="Optimize Meshes"
+                  Description="Perform vertex cache optimization of meshes"
+                  Category="MeshOptimization"
+                  Switch="-optimizemeshes+"
+                  ReverseSwitch="-optimizemeshes-" />
+    <IntProperty Name="VCache"
+                 DisplayName="Vertex Cache Size"
+                 Description="Vertex cache size for optimizemesh"
+                 Category="MeshOptimization"
+                 MinValue="0"
+                 MaxValue="64"
+                 Switch="-vcache [value]" />
+    <IntProperty Name="Restart"
+                 DisplayName="Strip Restart Length"
+                 Description="Strip restart length for optimizemesh"
+                 Category="MeshOptimization"
+                 MinValue="0"
+                 MaxValue="64"
+                 Switch="-restart [value]" />
+    <BoolProperty Name="CleanMeshes"
+                  DisplayName="Clean Meshes"
+                  Description="Clean up meshes (implied by optimizemeshes)"
+                  Category="MeshOptimization"
+                  Switch="-cleanmeshes+"
+                  ReverseSwitch="-cleanmeshes-" />
+    
+    <!-- UV Atlas Generation Options -->
+    <IntProperty Name="GenerateUVAtlas"
+                 DisplayName="Generate UV Atlas"
+                 Description="Generate UV Atlas on Texture Coordinate Index"
+                 Category="UVAtlasGeneration"
+                 MinValue="-1"
+                 MaxValue="7"
+                 Switch="-generateuvatlas [value]" />
+    <StringProperty Name="UVAtlasStretch"
+                    DisplayName="UV Atlas Stretch"
+                    Description="UV Atlas Max Stretch Factor (ranged value 0.000 - 1.000)"
+                    Category="UVAtlasGeneration"
+                    Switch="-uvatlasstretch [value]" />
+    <StringProperty Name="UVAtlasGutter"
+                    DisplayName="UV Atlas Gutter"
+                    Description="UV Atlas Gutter Size (ranged value 0.000 - 10.000)"
+                    Category="UVAtlasGeneration"
+                    Switch="-uvatlasgutter [value]" />
+    <IntProperty Name="UVAtlasTextureSize"
+                 DisplayName="UV Atlas Texture Size"
+                 Description="UV Atlas Texture Size"
+                 Category="UVAtlasGeneration"
+                 MinValue="64"
+                 MaxValue="4096"
+                 Switch="-uvatlastexturesize [value]" />
+
+    <!-- Subdivision Surfaces Options -->
+    <BoolProperty Name="ConvertMeshToSubD"
+                  DisplayName="Convert Mesh to SubD"
+                  Description="Convert Poly Meshes to Subdivision Surfaces"
+                  Category="SubdivisionSurfaces"
+                  Switch="-convertmeshtosubd+"
+                  ReverseSwitch="-convertmeshtosubd-" />
+    
+    <!-- Materials Options -->
+    <BoolProperty Name="ExportMaterials"
+                  DisplayName="Export Materials"
+                  Description="Export Materials"
+                  Category="Materials"
+                  Switch="-exportmaterials+"
+                  ReverseSwitch="-exportmaterials-" />
+    <StringProperty Name="DefaultMaterialName"
+                    DisplayName="Default Material Name"
+                    Description="Default Material Name"
+                    Category="Materials"
+                    Switch="-defaultmaterialname &quot;[value]&quot;" />
+    <BoolProperty Name="MaterialColors"
+                  DisplayName="Export material colors"
+                  Description="Export material colors"
+                  Category="Materials"
+                  Switch="-materialcolors+"
+                  ReverseSwitch="-materialcolors-" />
+    <BoolProperty Name="TextureCompression"
+                  DisplayName="Use Texture Compression"
+                  Description="Use Texture Compression"
+                  Category="Materials"
+                  Switch="-texturecompression+"
+                  ReverseSwitch="-texturecompression-" />
+    <BoolProperty Name="TextureBGRA"
+                  DisplayName="Use BGRA texture format"
+                  Description="Use BGRA texture format"
+                  Category="Materials"
+                  Switch="-texturebgra+"
+                  ReverseSwitch="-texturebgra-" />
+    <BoolProperty Name="GenerateTextureMips"
+                  DisplayName="Generate Texture Mip Maps"
+                  Description="Generate Texture Mip Maps"
+                  Category="Materials"
+                  Switch="-generatetexturemips+"
+                  ReverseSwitch="-generatetexturemips-" />
+    <BoolProperty Name="ForceTextureOverwrite"
+                  DisplayName="Force Texture File Overwriting"
+                  Description="Force Texture File Overwriting"
+                  Category="Materials"
+                  Switch="-forcetextureoverwrite+"
+                  ReverseSwitch="-forcetextureoverwrite-" />
+    <BoolProperty Name="UseEmissiveTexture"
+                  DisplayName="Use Emissive Texture"
+                  Description="Use emissive texture as specular texture"
+                  Category="Materials"
+                  Switch="-useemissivetexture+"
+                  ReverseSwitch="-useemissivetexture-" />
+    <StringProperty Subtype="file"
+                    Name="DefaultDiffuseMap"
+                    DisplayName="Default Diffuse Map"
+                    Description="Default Diffuse Map Texture Filename"
+                    Category="Materials"
+                    Switch="-defaultdiffusemap &quot;[value]&quot;" />
+    <StringProperty Subtype="file"
+                    Name="DefaultNormalMap"
+                    DisplayName="Default Normal Map"
+                    Description="Default Normal Map Texture Filename"
+                    Category="Materials"
+                    Switch="-defaultnormalmap &quot;[value]&quot;" />
+    <StringProperty Subtype="file"
+                    Name="DefaultSpecMap"
+                    DisplayName="Default Specular Map"
+                    Description="Default Specular Map Texture Filename"
+                    Category="Materials"
+                    Switch="-defaultspecmap &quot;[value]&quot;" />
+                    
+    <!-- Animation Options -->
+    <BoolProperty Name="ExportAnimations"
+                  DisplayName="Export Animations"
+                  Description="Export Animations"
+                  Category="Animation"
+                  Switch="-exportanimations+"
+                  ReverseSwitch="-exportanimations-" />
+    <BoolProperty Name="OptimizeAnimations"
+                  DisplayName="Optimize Animations"
+                  Description="Optimize Animations"
+                  Category="Animation"
+                  Switch="-optimizeanimations+"
+                  ReverseSwitch="-optimizeanimations-" />
+    <BoolProperty Name="RenameAnimations"
+                  DisplayName="Rename Animations"
+                  Description="Rename Animations To Match Output File Name"
+                  Category="Animation"
+                  Switch="-renameanimations+"
+                  ReverseSwitch="-renameanimations-" />
+    <IntProperty Name="AnimSampleCount"
+                 DisplayName="Animation Sample Count"
+                 Description="Animation Baking Sample Count Per Frame"
+                 Category="Animation"
+                 MinValue="1"
+                 MaxValue="10"
+                 Switch="-animsamplecount [value]" />
+    <IntProperty Name="PositionCurveQuality"
+                 DisplayName="Position Curve Quality"
+                 Description="Position Curve Quality"
+                 Category="Animation"
+                 MinValue="0"
+                 MaxValue="100"
+                 Switch="-positioncurvequality [value]" />
+    <IntProperty Name="OrientationCurveQuality"
+                 DisplayName="Orientation Curve Quality"
+                 Description="Orientation Curve Quality"
+                 Category="Animation"
+                 MinValue="0"
+                 MaxValue="100"
+                 Switch="-orientationcurvequality [value]" />
+    <StringProperty Name="AnimationRootNode"
+                    DisplayName="Animation Root Node"
+                    Description="Animation Root Node Name (default includes all nodes)"
+                    Category="Animation"
+                    Switch="-animationrootnode &quot;[value]&quot;" />
+                    
+    <!-- XATG File Export Options -->
+    <BoolProperty Name="PackMeshData"
+                  DisplayName="Pack Mesh Data"
+                  Description="Write .pmem Fast Load File"
+                  Category="XATGFileExport"
+                  Switch="-packmeshdata+"
+                  ReverseSwitch="-packmeshdata-" />
+    <BoolProperty Name="UseExistingBundle"
+                  DisplayName="Use Existing Bundle"
+                  Description="Use Existing Bundle"
+                  Category="XATGFileExport"
+                  Switch="-useexistingbundle+"
+                  ReverseSwitch="-useexistingbundle-" />
+    <BoolProperty Name="BundleTextures"
+                  DisplayName="Bundle Textures"
+                  Description="Bundle Textures"
+                  Category="XATGFileExport"
+                  Switch="-bundletextures+"
+                  ReverseSwitch="-bundletextures-" />
+    
+    <!-- Additional options -->
+    <StringProperty
+      Name="CommandLineTemplate"
+      DisplayName="Command Line"
+      Visible="False"
+      IncludeInCommandLine="False" />
+    <StringProperty
+      Name="TrackerCommandLine"
+      DisplayName="Tracker Command Line"
+      Visible="False"
+      IncludeInCommandLine="False" />
+    <StringProperty
+      Name="ExecutionDescription"
+      DisplayName="Execution Description"
+      Visible="False"
+      IncludeInCommandLine="False" />
+    <StringProperty
+      Subtype="AdditionalOptions"
+      Name="AdditionalOptions"
+      DisplayName="Additional Options"
+      Description="Additional Options"
+      Category="Command Line" />
+  </Rule>
+  
+  <ItemType
+    Name="ContentExporter"
+    DisplayName="ATG Samples Content Exporter" />
+  <FileExtension
+    Name="*.fbx"
+    ContentType="ContentExporter" />
+  <ContentType
+    Name="ContentExporter"
+    DisplayName="ATG Samples Content Exporter"
+    ItemType="ContentExporter" />
+
+</ProjectSchemaDefinitions>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <PropertyPageSchema
+      Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+    <AvailableItemName Include="ContentExporter">
+      <Targets>_ContentExporter</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  
+  <UsingTask
+    TaskName="ContentExporter"
+    TaskFactory="XamlTaskFactory"
+    AssemblyName="Microsoft.Build.Tasks.v4.0">
+    <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
+  </UsingTask>
+
+  <PropertyGroup>
+    <ContentFilesProjectOutputGroupDependsOn>$(ContentFilesProjectOutputGroupDependsOn);_ContentExporter</ContentFilesProjectOutputGroupDependsOn>
+  </PropertyGroup>
+  
+  <Target
+    Name="_ContentExporter"
+    BeforeTargets="$(ContentExporterBeforeTargets)"
+    AfterTargets="$(ContentExporterAfterTargets)"
+    Condition="'@(ContentExporter)' != ''"
+    DependsOnTargets="$(ContentExporterDependsOn)" >
+    
+    <Message
+      Importance="High"
+      Text="%(ContentExporter.ExecutionDescription)" />
+    
+    <ContentExporter
+        Condition="'@(ContentExporter)' != '' and '%(ContentExporter.ExcludedFromBuild)' != 'true'"
+        CommandLineTemplate="%(ContentExporter.TrackerCommandLine)"
+        OutputPath="%(ContentExporter.OutputPath)"
+        Verbose="%(ContentExporter.Verbose)"
+        TargetPlatform="%(ContentExporter.TargetPlatform)"
+        CollisionMesh="%(ContentExporter.CollisionMesh)"
+        Animation="%(ContentExporter.Animation)"
+        Character="%(ContentExporter.Character)"
+        LightMaps="%(ContentExporter.LightMaps)"
+        NormalMaps="%(ContentExporter.NormalMaps)"
+        SubD11="%(ContentExporter.SubD11)"
+        SubDXbox="%(ContentExporter.SubDXbox)"
+        SaveSettings="%(ContentExporter.SaveSettings)"
+        LoadSettings="%(ContentExporter.LoadSettings)"
+        FileList="%(ContentExporter.FileList)"
+        LogLevel="%(ContentExporter.LogLevel)"
+        FileFormat="%(ContentExporter.FileFormat)"
+        Endian="%(ContentExporter.Endian)"
+        FeatureLevel="%(ContentExporter.FeatureLevel)"
+        ExportHiddenObjects="%(ContentExporter.ExportHiddenObjects)"
+        ExportFrames="%(ContentExporter.ExportFrames)"
+        ExportLights="%(ContentExporter.ExportLights)"
+        LightRangeScale="%(ContentExporter.LightRangeScale)"
+        ExportCameras="%(ContentExporter.ExportCameras)"
+        ExportBindPose="%(ContentExporter.ExportBindPose)"
+        ExportScale="%(ContentExporter.ExportScale)"
+        ExportMeshes="%(ContentExporter.ExportMeshes)"
+        CompressVertexData="%(ContentExporter.CompressVertexData)"
+        ComputeVertexTangents="%(ContentExporter.ComputeVertexTangents)"
+        TangentsIndex="%(ContentExporter.TangentsIndex)"
+        ExportBinormals="%(ContentExporter.ExportBinormals)"
+        CompressedNormalType="%(ContentExporter.CompressedNormalType)"
+        ExportNormals="%(ContentExporter.ExportNormals)"
+        ExportColors="%(ContentExporter.ExportColors)"
+        VertexColorType="%(ContentExporter.VertexColorType)"
+        Force32BitIndices="%(ContentExporter.Force32BitIndices)"
+        MaxUVSetCount="%(ContentExporter.MaxUVSetCount)"
+        ExportBoneWeights="%(ContentExporter.ExportBoneWeights)"
+        FlipTriangles="%(ContentExporter.FlipTriangles)"
+        ApplyGlobalTrans="%(ContentExporter.ApplyGlobalTrans)"
+        InvertVTexCoord="%(ContentExporter.InvertVTexCoord)"
+        FlipZ="%(ContentExporter.FlipZ)"
+        MeshNameDecoration="%(ContentExporter.MeshNameDecoration)"
+        GAdjacency="%(ContentExporter.GAdjacency)"
+        OptimizeMeshes="%(ContentExporter.OptimizeMeshes)"
+        VCache="%(ContentExporter.VCache)"
+        Restart="%(ContentExporter.Restart)"
+        CleanMeshes="%(ContentExporter.CleanMeshes)"
+        GenerateUVAtlas="%(ContentExporter.GenerateUVAtlas)"
+        UVAtlasStretch="%(ContentExporter.UVAtlasStretch)"
+        UVAtlasGutter="%(ContentExporter.UVAtlasGutter)"
+        UVAtlasTextureSize="%(ContentExporter.UVAtlasTextureSize)"
+        ConvertMeshToSubD="%(ContentExporter.ConvertMeshToSubD)"
+        ExportMaterials="%(ContentExporter.ExportMaterials)"
+        DefaultMaterialName="%(ContentExporter.DefaultMaterialName)"
+        MaterialColors="%(ContentExporter.MaterialColors)"
+        TextureCompression="%(ContentExporter.TextureCompression)"
+        TextureBGRA="%(ContentExporter.TextureBGRA)"
+        GenerateTextureMips="%(ContentExporter.GenerateTextureMips)"
+        ForceTextureOverwrite="%(ContentExporter.ForceTextureOverwrite)"
+        UseEmissiveTexture="%(ContentExporter.UseEmissiveTexture)"
+        DefaultDiffuseMap="%(ContentExporter.DefaultDiffuseMap)"
+        DefaultNormalMap="%(ContentExporter.DefaultNormalMap)"
+        DefaultSpecMap="%(ContentExporter.DefaultSpecMap)"
+        ExportAnimations="%(ContentExporter.ExportAnimations)"
+        OptimizeAnimations="%(ContentExporter.OptimizeAnimations)"
+        RenameAnimations="%(ContentExporter.RenameAnimations)"
+        AnimSampleCount="%(ContentExporter.AnimSampleCount)"
+        PositionCurveQuality="%(ContentExporter.PositionCurveQuality)"
+        OrientationCurveQuality="%(ContentExporter.OrientationCurveQuality)"
+        AnimationRootNode="%(ContentExporter.AnimationRootNode)"
+        PackMeshData="%(ContentExporter.PackMeshData)"
+        UseExistingBundle="%(ContentExporter.UseExistingBundle)"
+        BundleTextures="%(ContentExporter.BundleTextures)"
+        Inputs="%(ContentExporter.FullPath)"
+        StandardOutputImportance="Low"
+        StandardErrorImportance="High"
+        EchoOff="false" />
+    </Target>
+</Project>
