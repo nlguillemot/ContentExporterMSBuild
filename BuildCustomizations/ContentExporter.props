@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <PropertyGroup Condition="'$(ContentExporterBeforeTargets)' == '' and '$(ContentExporterAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
-    <ContentExporterBeforeTargets>Midl</ContentExporterBeforeTargets>
-    <ContentExporterAfterTargets>CustomBuild</ContentExporterAfterTargets>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <ContentExporterDependsOn
-      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(ContentExporterDependsOn)</ContentExporterDependsOn>
-  </PropertyGroup>
-
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
   <ItemDefinitionGroup>
     <ContentExporter>
       <OutputPath>$(OutDir)</OutputPath>
@@ -73,5 +62,4 @@
       <ExecutionDescription>%(Filename)%(Extension)</ExecutionDescription>
     </ContentExporter>
   </ItemDefinitionGroup>
-
 </Project>

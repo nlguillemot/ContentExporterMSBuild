@@ -17,15 +17,13 @@
   </UsingTask>
 
   <PropertyGroup>
-    <ContentFilesProjectOutputGroupDependsOn>$(ContentFilesProjectOutputGroupDependsOn);_ContentExporter</ContentFilesProjectOutputGroupDependsOn>
+    <BuildDependsOn>$(BuildDependsOn);_ContentExporter</BuildDependsOn>
   </PropertyGroup>
   
   <Target
     Name="_ContentExporter"
-    BeforeTargets="$(ContentExporterBeforeTargets)"
-    AfterTargets="$(ContentExporterAfterTargets)"
-    Condition="'@(ContentExporter)' != ''"
-    DependsOnTargets="$(ContentExporterDependsOn)" >
+    Inputs="@(ContentExporter)"
+    Outputs="@(ContentExporter->'%(Filename).sdkmesh')" >
     
     <Message
       Importance="High"
