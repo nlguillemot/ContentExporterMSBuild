@@ -23,7 +23,7 @@
   <Target
     Name="_ContentExporter"
     Inputs="@(ContentExporter)"
-    Outputs="@(ContentExporter->'%(Filename).sdkmesh')" >
+    Outputs="@(ContentExporter->'%(OutputPath)%(Filename).sdkmesh')" >
     
     <Message
       Importance="High"
